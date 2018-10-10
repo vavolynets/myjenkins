@@ -30,7 +30,7 @@ docker-compose up -d
 
 To see credentials of created users, please run
 
-docker-compose logs 
+docker-compose logs juser
 
 # External resources
 
