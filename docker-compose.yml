@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  jenkins:
+    build:
+       context: ./build
+       args:
+         DUID: 993
+         DUSER: docker
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins-data:/var/jenkins_home
+      - ./jobs:/var/jenkins_home/jobs
+      - /var/run/docker.sock:/var/run/docker.sock
+#    environment:
+#      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+#      JENKINS_USER: "admin"
+#      JENKINS_PASS: "admin"
+    restart: always
+
+  juser:
+    build:
+        context: ./j-users
+    volumes:
+      - ./jenkins-data:/var/jenkins_home:ro
+    depends_on:
+      - jenkins
+    restart: "no"
